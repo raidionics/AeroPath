@@ -1,2 +1,3 @@
-raidionicsrads @ git+https://github.com/andreped/raidionics_rads_lib
+raidionicsrads@git+https://github.com/andreped/raidionics_rads_lib.git
 gradio==3.44.4
+pandas==2.0.0
