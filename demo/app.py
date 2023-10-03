@@ -1,16 +1,39 @@
+import os
+from argparse import ArgumentParser
+
 from src.gui import WebUI
 
 
 def main():
-    print("Launching demo...")
+    parser = ArgumentParser()
+    parser.add_argument(
+        "--cwd",
+        type=str,
+        default="/home/user/app/",
+        help="Set current working directory (path to app.py).",
+    )
+    parser.add_argument(
+        "--share",
+        type=int,
+        default=1,
+        help="Whether to enable the app to be accessible online"
+        "-> setups a public link which requires internet access.",
+    )
+    args = parser.parse_args()
 
-    # cwd = "/Users/andreped/workspace/AeroPath/"  # local testing -> macOS
-    cwd = "/home/user/app/"  # production -> docker
+    print("Current working directory:", args.cwd)
 
-    class_name = "airways"
+    if not os.path.exists(args.cwd):
+        raise ValueError("Chosen 'cwd' is not a valid path!")
+    if args.share not in [0, 1]:
+        raise ValueError(
+            "The 'share' argument can only be set to 0 or 1, but was:",
+            args.share,
+        )
 
     # initialize and run app
-    app = WebUI(class_name=class_name, cwd=cwd)
+    print("Launching demo...")
+    app = WebUI(cwd=args.cwd, share=args.share)
     app.run()
 
 
