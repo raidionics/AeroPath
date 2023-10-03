@@ -8,8 +8,8 @@ def run_model(
     input_path: str,
     model_path: str,
     verbose: str = "info",
-    task: str = "MRI_Meningioma",
-    name: str = "Tumor",
+    task: str = "CT_Airways",
+    name: str = "Airways",
 ):
     logging.basicConfig()
     logging.getLogger().setLevel(logging.WARNING)

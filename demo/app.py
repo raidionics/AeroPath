@@ -7,7 +7,7 @@ def main():
     # cwd = "/Users/andreped/workspace/AeroPath/"  # local testing -> macOS
     cwd = "/home/user/app/"  # production -> docker
 
-    class_name = "tumor"
+    class_name = "airways"
 
     # initialize and run app
     app = WebUI(class_name=class_name, cwd=cwd)
