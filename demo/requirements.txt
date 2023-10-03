@@ -1,2 +1,2 @@
 raidionicsrads @ git+https://github.com/andreped/raidionics_rads_lib
-gradio==3.32.0
+gradio==3.44.4
