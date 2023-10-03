@@ -7,7 +7,7 @@ app_port: 7860
 emoji: 🧠
 pinned: false
 license: mit
-app_file: app.py
+app_file: demo/app.py
 ---
 
 <div align="center">
@@ -22,19 +22,19 @@ app_file: app.py
 
 </div>
 
-## Brief intro
+## [Brief intro](https://github.com/raidionics/AeroPath#brief-intro)
 
 This web application enables users to easily test our deep learning model for airway segmentation in CTs. The plugin is built on top of gradio using the same backend as used for the [Raidionics](https://raidionics.github.io/) software. Raidionics is an open-source, free-to-use desktop application for pre- and postoperative central nervous system tumor segmentation and standardized reporting, but the same core backend principles can easily be adapted to other applications, as demonstrated in this repository.
 
-## Demo <a target="_blank" href="https://huggingface.co/spaces/andreped/AeroPath"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Spaces-yellow.svg"></a>
+## [Demo](https://github.com/raidionics/AeroPath#demo) <a target="_blank" href="https://huggingface.co/spaces/andreped/AeroPath"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Spaces-yellow.svg"></a>
 
 To access the live demo, click on the `Hugging Face` badge above. Below is a snapshot of the current state of the demo app.
 
 <img width="1722" alt="Screenshot 2023-06-06 at 21 53 25" src="https://github.com/andreped/AeroPath/assets/29090665/e67f35c2-482b-409c-b1a9-bc987fbb5c6a">
 
-## Development
+## [Development](https://github.com/raidionics/AeroPath#development)
 
-### Docker
+### [Docker](https://github.com/raidionics/AeroPath#docker)
 
 Alternatively, you can deploy the software locally. Note that this is only relevant for development purposes. Simply dockerize the app and run it:
 
@@ -45,7 +45,7 @@ docker run -it -p 7860:7860 AeroPath
 
 Then open `http://127.0.0.1:7860` in your favourite internet browser to view the demo.
 
-### Python
+### [Python](https://github.com/raidionics/AeroPath#python)
 
 It is also possible to run the app locally without Docker. Just setup a virtual environment and run the app.
 Note that the current working directory would need to be adjusted based on where `AeroPath` is located on disk.
@@ -61,21 +61,13 @@ pip install -r requirements.txt
 python app.py --cwd ./
 ```
 
-### CoLab
-
-To aid people developing in the cloud, we have made a simple Jupyter Notebook example which is hosted on Google CoLab.
-
-Click the badge above to access it. This is mainly of interest to developers.
-
-## Troubleshooting
+## [Troubleshooting](https://github.com/raidionics/AeroPath#troubleshooting)
 
 Due to `share=True` being enabled by default when launching the app,
 internet access is required for the app to be launched. This can disabled by setting
 the argument to `--share 0`.
 
-## Citation
-
-## [How to cite](https://github.com/raidionics/Raidionics#how-to-cite)
+## [Citation](https://github.com/raidionics/AeroPath#citation)
 
 If you found this tool relevant in your research, please cite the following references enabling the backend compute magic.
 
