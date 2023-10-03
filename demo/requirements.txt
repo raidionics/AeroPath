@@ -1,0 +1,2 @@
+lungtumormask @ git+https://github.com/vemundfredriksen/LungTumorMask.git
+gradio==3.44.4
