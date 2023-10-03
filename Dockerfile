@@ -71,4 +71,4 @@ RUN rm -r *.zip
 RUN wget "https://github.com/andreped/neukit/releases/download/test-data/test_thorax_CT.nii.gz"
 
 # CMD ["/bin/bash"]
-CMD ["python3", "app.py"]
+CMD ["python3", "demo/app.py"]
