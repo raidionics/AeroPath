@@ -54,9 +54,9 @@ COPY --chown=user . $HOME/app
 
 # Download pretrained models
 RUN wget "https://github.com/raidionics/Raidionics-models/releases/download/1.2.0/Raidionics-CT_Airways-ONNX-v12.zip" && \
-    unzip "Raidionics-CT_Airways-ONNX-v12.zip" && mkdir -p resources/models/ && mv CT_Airways/ resources/models/CT_Airways/
+    unzip "Raidionics-CT_Airways-ONNX-v12.zip" && mkdir -p demo/resources/models/ && mv CT_Airways/ demo/resources/models/CT_Airways/
 RUN wget "https://github.com/raidionics/Raidionics-models/releases/download/1.2.0/Raidionics-CT_Lungs-ONNX-v12.zip" && \
-    unzip "Raidionics-CT_Lungs-ONNX-v12.zip" && mv CT_Lungs/ resources/models/CT_Lungs/
+    unzip "Raidionics-CT_Lungs-ONNX-v12.zip" && mv CT_Lungs/ demo/resources/models/CT_Lungs/
 
 RUN rm -r *.zip
 
