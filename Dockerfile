@@ -1,6 +1,6 @@
 # read the doc: https://huggingface.co/docs/hub/spaces-sdks-docker
 # you will also find guides on how best to write your Dockerfile
-FROM python:3.7-slim
+FROM python:3.8-slim
 
 # set language, format and stuff
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
