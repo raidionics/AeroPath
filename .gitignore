@@ -5,3 +5,5 @@ venv/
 *.egg-info
 *.csv
 *.ini
+*__pycache__/
+*.DS_Store
