@@ -74,7 +74,7 @@ class WebUI:
             
             with gr.Row():
                 gr.Examples(
-                    examples=[self.cwd + "lung_001.nii.gz"],
+                    examples=[self.cwd + "test_thorax_CT.nii.gz"],
                     inputs=file_output,
                     outputs=file_output,
                     fn=self.upload_file,
