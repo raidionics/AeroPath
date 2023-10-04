@@ -51,12 +51,12 @@ It is also possible to run the app locally without Docker. Just setup a virtual 
 Note that the current working directory would need to be adjusted based on where `AeroPath` is located on disk.
 
 ```
-git clone https://github.com/andreped/AeroPath.git
+git clone https://github.com/raidionics/AeroPath.git
 cd AeroPath/
 
-virtualenv -ppython3 venv --clear
+virtualenv -python3 venv --clear
 source venv/bin/activate
-pip install -r requirements.txt
+pip install -r ./demo/requirements.txt
 
 python app.py --cwd ./
 ```

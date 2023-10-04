@@ -61,6 +61,7 @@ RUN wget "https://github.com/raidionics/Raidionics-models/releases/download/1.2.
 RUN rm -r *.zip
 
 # Download test sample
+# @TODO: I have resampled the volume to 1mm isotropic for faster computation
 RUN wget "https://github.com/andreped/neukit/releases/download/test-data/test_thorax_CT.nii.gz"
 
 # CMD ["/bin/bash"]
