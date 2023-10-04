@@ -7,7 +7,7 @@ app_port: 7860
 emoji: 🧠
 pinned: false
 license: mit
-app_file: app.py
+app_file: demo/app.py
 ---
 
 <div align="center">
@@ -58,7 +58,7 @@ virtualenv -python3 venv --clear
 source venv/bin/activate
 pip install -r ./demo/requirements.txt
 
-python app.py --cwd ./
+python demo/app.py --cwd ./
 ```
 
 ## [Troubleshooting](https://github.com/raidionics/AeroPath#troubleshooting)
