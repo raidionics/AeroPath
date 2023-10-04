@@ -10,5 +10,4 @@ venv/
 *.json
 *.onnx
 *.xml
-*.txt
 *.obj
