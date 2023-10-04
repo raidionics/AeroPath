@@ -20,7 +20,7 @@ class WebUI:
         self.pred_images = []
 
         # @TODO: This should be dynamically set based on chosen volume size
-        self.nb_slider_items = 300
+        self.nb_slider_items = 415
 
         self.model_name = model_name
         self.cwd = cwd
@@ -29,10 +29,12 @@ class WebUI:
         self.class_name = "airways"  # default
         self.class_names = {
             "airways": "CT_Airways",
+            "lungs": "CT_Lungs",
         }
 
         self.result_names = {
-            "airways": "Airway",
+            "airways": "Airways",
+            "lungs": "Lungs",
         }
 
         # define widgets not to be rendered immediantly, but later on
@@ -104,8 +106,7 @@ class WebUI:
                 model_selector = gr.Dropdown(
                     list(self.class_names.keys()),
                     label="Task",
-                    info="Which task to perform - one model for"
-                    "each brain tumor type and brain extraction",
+                    info="Which task to perform",
                     multiselect=False,
                     size="sm",
                 )
