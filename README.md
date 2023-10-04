@@ -7,7 +7,7 @@ app_port: 7860
 emoji: 🧠
 pinned: false
 license: mit
-app_file: demo/app.py
+app_file: app.py
 ---
 
 <div align="center">
