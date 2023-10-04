@@ -48,7 +48,7 @@ def run_model(
         # Setting up the configuration file
         rads_config = configparser.ConfigParser()
         rads_config.add_section("Default")
-        rads_config.set("Default", "task", "neuro_diagnosis")
+        rads_config.set("Default", "task", "mediastinum_diagnosis")
         rads_config.set("Default", "caller", "")
         rads_config.add_section("System")
         rads_config.set("System", "gpu_id", "-1")

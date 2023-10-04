@@ -30,6 +30,8 @@ def main():
             "The 'share' argument can only be set to 0 or 1, but was:",
             args.share,
         )
+    
+    print("Current cwd:", args.cwd)
 
     # initialize and run app
     print("Launching demo...")
