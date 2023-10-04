@@ -1,3 +1,2 @@
 raidionicsrads@git+https://github.com/dbouget/raidionics_rads_lib
-gradio==3.36.1
-gradio_client==0.2.7
+gradio==3.44.4
