@@ -96,6 +96,7 @@ def run_model(
             shutil.rmtree(output_path)
     except Exception as e:
         print(traceback.format_exc())
+        print(e)
         # Clean-up
         if os.path.exists(patient_directory):
             shutil.rmtree(patient_directory)
