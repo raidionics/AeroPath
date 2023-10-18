@@ -32,6 +32,9 @@ RUN pip install --no-cache-dir --upgrade -r /code/demo/requirements.txt
 # resolve issue with tf==2.4 and gradio dependency collision issue
 RUN pip install --force-reinstall typing_extensions==4.7.1
 
+# lower pydantic version to work with typing_extensions deprecation
+RUN pip install --force-reinstall "pydantic<2.0.0"
+
 # Install wget
 RUN apt install wget -y && \
     apt install unzip
