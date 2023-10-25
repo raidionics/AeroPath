@@ -69,17 +69,9 @@ pip install -r ./demo/requirements.txt
 python demo/app.py --cwd ./
 ```
 
-## [Troubleshooting](https://github.com/raidionics/AeroPath#troubleshooting)
-
-Due to `share=True` being enabled by default when launching the app,
-internet access is required for the app to be launched. This can disabled by setting
-the argument to `--share 0`.
-
 ## [Citation](https://github.com/raidionics/AeroPath#citation)
 
-If you found this tool relevant in your research, please cite the following references enabling the backend compute magic.
-
-The final software including updated performance metrics for preoperative tumors and introducing postoperative tumor segmentation:
+If you found this tool relevant in your research, please cite the following reference which introduced the backend that is used for the AeroPath demonstration:
 ```
 @article{bouget2023raidionics,
     author = {Bouget, David and Alsinan, Demah and Gaitan, Valeria and Holden Helland, Ragnhild and Pedersen, André and Solheim, Ole and Reinertsen, Ingerid},
@@ -90,19 +82,5 @@ The final software including updated performance metrics for preoperative tumors
     volume = {13},
     journal = {Scientific Reports},
     doi = {10.1038/s41598-023-42048-7},
-}
-```
-
-For the preliminary preoperative tumor segmentation validation and software features:
-```
-@article{bouget2022preoptumorseg,
-    title={Preoperative Brain Tumor Imaging: Models and Software for Segmentation and Standardized Reporting},
-    author={Bouget, David and Pedersen, André and Jakola, Asgeir S. and Kavouridis, Vasileios and Emblem, Kyrre E. and Eijgelaar, Roelant S. and Kommers, Ivar and Ardon, Hilko and Barkhof, Frederik and Bello, Lorenzo and Berger, Mitchel S. and Conti Nibali, Marco and Furtner, Julia and Hervey-Jumper, Shawn and Idema, Albert J. S. and Kiesel, Barbara and Kloet, Alfred and Mandonnet, Emmanuel and Müller, Domenique M. J. and Robe, Pierre A. and Rossi, Marco and Sciortino, Tommaso and Van den Brink, Wimar A. and Wagemakers, Michiel and Widhalm, Georg and Witte, Marnix G. and Zwinderman, Aeilko H. and De Witt Hamer, Philip C. and Solheim, Ole and Reinertsen, Ingerid},
-    journal={Frontiers in Neurology},
-    volume={13},
-    year={2022},
-    url={https://www.frontiersin.org/articles/10.3389/fneur.2022.932219},
-    doi={10.3389/fneur.2022.932219},
-    issn={1664-2295}
 }
 ```
