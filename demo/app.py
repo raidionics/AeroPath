@@ -15,7 +15,7 @@ def main():
     parser.add_argument(
         "--share",
         type=int,
-        default=1,
+        default=0,
         help="Whether to enable the app to be accessible online"
         "-> setups a public link which requires internet access.",
     )
@@ -30,7 +30,7 @@ def main():
             "The 'share' argument can only be set to 0 or 1, but was:",
             args.share,
         )
-    
+
     print("Current cwd:", args.cwd)
 
     # initialize and run app
