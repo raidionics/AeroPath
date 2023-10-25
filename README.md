@@ -69,12 +69,6 @@ pip install -r ./demo/requirements.txt
 python demo/app.py --cwd ./
 ```
 
-## [Troubleshooting](https://github.com/raidionics/AeroPath#troubleshooting)
-
-Due to `share=True` being enabled by default when launching the app,
-internet access is required for the app to be launched. This can disabled by setting
-the argument to `--share 0`.
-
 ## [Citation](https://github.com/raidionics/AeroPath#citation)
 
 If you found this tool relevant in your research, please cite the following references enabling the backend compute magic.
