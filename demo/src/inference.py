@@ -30,8 +30,8 @@ def run_model(
     if os.path.exists("./result/"):
         shutil.rmtree("./result/")
 
-    patient_directory = ''
-    output_path = ''
+    patient_directory = ""
+    output_path = ""
     try:
         # setup temporary patient directory
         filename = input_path.split("/")[-1]
@@ -94,7 +94,7 @@ def run_model(
             shutil.rmtree(patient_directory)
         if os.path.exists(output_path):
             shutil.rmtree(output_path)
-    except Exception as e:
+    except Exception:
         print(traceback.format_exc())
         # Clean-up
         if os.path.exists(patient_directory):
