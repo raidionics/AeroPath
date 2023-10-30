@@ -3,11 +3,12 @@ import os
 import gradio as gr
 
 from .inference import run_model
-from .logger import setup_logger, read_logs, flush_logs
+from .logger import flush_logs
+from .logger import read_logs
+from .logger import setup_logger
 from .utils import load_ct_to_numpy
 from .utils import load_pred_volume_to_numpy
 from .utils import nifti_to_glb
-
 
 # setup logging
 LOGGER = setup_logger()
@@ -100,7 +101,7 @@ class WebUI:
             width=512,
         )
         return out
-    
+
     def toggle_sidebar(self, state):
         state = not state
         return gr.update(visible=state), state
@@ -122,13 +123,24 @@ class WebUI:
             with gr.Row():
                 with gr.Column(visible=True, scale=0.2) as sidebar_left:
                     # gr.Markdown("SideBar Left")
-                    logs = gr.Textbox(label="Logs", info="Verbose from inference will be displayed below.", max_lines=16, autoscroll=True, elem_id="logs", show_copy_button=True)
+                    logs = gr.Textbox(
+                        label="Logs",
+                        info="Verbose from inference will be displayed below.",
+                        max_lines=16,
+                        autoscroll=True,
+                        elem_id="logs",
+                        show_copy_button=True,
+                    )
                     demo.load(read_logs, None, logs, every=1)
 
                 with gr.Column():
                     with gr.Row():
-                        file_output = gr.File(file_count="single", elem_id="upload")
-                        file_output.upload(self.upload_file, file_output, file_output)
+                        file_output = gr.File(
+                            file_count="single", elem_id="upload"
+                        )
+                        file_output.upload(
+                            self.upload_file, file_output, file_output
+                        )
 
                         model_selector = gr.Dropdown(
                             list(self.class_names.keys()),
@@ -156,7 +168,11 @@ class WebUI:
                             sidebar_state = gr.State(True)
 
                             btn_toggle_sidebar = gr.Button("Toggle Sidebar")
-                            btn_toggle_sidebar.click(self.toggle_sidebar, [sidebar_state], [sidebar_left, sidebar_state])
+                            btn_toggle_sidebar.click(
+                                self.toggle_sidebar,
+                                [sidebar_state],
+                                [sidebar_left, sidebar_state],
+                            )
 
                             btn_clear_logs = gr.Button("Clear logs")
                             btn_clear_logs.click(flush_logs, [], [])
