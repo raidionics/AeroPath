@@ -154,7 +154,9 @@ class WebUI:
                         )
 
                         self.slider.input(
-                            self.get_img_pred_pair, self.slider, t,
+                            self.get_img_pred_pair,
+                            self.slider,
+                            t,
                         )
 
                         self.slider.render()
