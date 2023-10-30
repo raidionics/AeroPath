@@ -3,7 +3,7 @@ import os
 import gradio as gr
 
 from .inference import run_model
-from .logger import setup_logger, read_logs
+from .logger import setup_logger, read_logs, flush_logs
 from .utils import load_ct_to_numpy
 from .utils import load_pred_volume_to_numpy
 from .utils import nifti_to_glb
@@ -58,14 +58,16 @@ class WebUI:
         ).style(height=512)
 
     def set_class_name(self, value):
-        print("Changed task to:", value)
+        LOGGER.info(f"Changed task to: {value}")
         self.class_name = value
 
     def combine_ct_and_seg(self, img, pred):
         return (img, [(pred, self.class_name)])
 
     def upload_file(self, file):
-        return file.name
+        out = file.name
+        LOGGER.info(f"File uploaded: {out}")
+        return out
 
     def process(self, mesh_file_name):
         path = mesh_file_name.name
@@ -75,9 +77,13 @@ class WebUI:
             task=self.class_names[self.class_name],
             name=self.result_names[self.class_name],
         )
+        LOGGER.info("Converting prediction NIfTI to GLB...")
         nifti_to_glb("prediction.nii.gz")
 
+        LOGGER.info("Loading CT to numpy...")
         self.images = load_ct_to_numpy(path)
+
+        LOGGER.info("Loading prediction volume to numpy..")
         self.pred_images = load_pred_volume_to_numpy("./prediction.nii.gz")
 
         return "./prediction.obj"
@@ -94,6 +100,10 @@ class WebUI:
             width=512,
         )
         return out
+    
+    def toggle_sidebar(self, state):
+        state = not state
+        return gr.update(visible=state), state
 
     def run(self):
         css = """
@@ -105,15 +115,16 @@ class WebUI:
         margin: auto;
         }
         #upload {
-        height: 120px;
-        }
-        .logs {
-        width: 120px;
-        margin: auto;
+        height: 160px;
         }
         """
         with gr.Blocks(css=css) as demo:
             with gr.Row():
+                with gr.Column(visible=True, scale=0.2) as sidebar_left:
+                    # gr.Markdown("SideBar Left")
+                    logs = gr.Textbox(label="Logs", info="Verbose from inference will be displayed below.", max_lines=16, autoscroll=True, elem_id="logs", show_copy_button=True)
+                    demo.load(read_logs, None, logs, every=1)
+
                 with gr.Column():
                     with gr.Row():
                         file_output = gr.File(file_count="single", elem_id="upload")
@@ -132,14 +143,23 @@ class WebUI:
                             outputs=None,
                         )
 
-                        run_btn = gr.Button("Run analysis").style(
-                            full_width=False, size="lg"
-                        )
-                        run_btn.click(
-                            fn=lambda x: self.process(x),
-                            inputs=file_output,
-                            outputs=self.volume_renderer,
-                        )
+                        with gr.Column():
+                            run_btn = gr.Button("Run analysis").style(
+                                full_width=False, size="lg"
+                            )
+                            run_btn.click(
+                                fn=lambda x: self.process(x),
+                                inputs=file_output,
+                                outputs=self.volume_renderer,
+                            )
+
+                            sidebar_state = gr.State(True)
+
+                            btn_toggle_sidebar = gr.Button("Toggle Sidebar")
+                            btn_toggle_sidebar.click(self.toggle_sidebar, [sidebar_state], [sidebar_left, sidebar_state])
+
+                            btn_clear_logs = gr.Button("Clear logs")
+                            btn_clear_logs.click(flush_logs, [], [])
 
                     with gr.Row():
                         gr.Examples(
@@ -174,12 +194,6 @@ class WebUI:
 
                         with gr.Box():
                             self.volume_renderer.render()
-                
-                with gr.Column(visible=True, style="logs", scale=0.2) as sidebar_left:
-                    gr.Markdown("SideBar Right")
-
-                    logs = gr.Textbox(label="Logs", info="Verbose from inference will be displayed below.", max_lines=16, autoscroll=True, elem_id="logs")
-                    demo.load(read_logs, None, logs, every=1)
 
         # sharing app publicly -> share=True:
         # https://gradio.app/sharing-your-app/
