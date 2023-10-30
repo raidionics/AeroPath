@@ -3,9 +3,15 @@ import os
 import gradio as gr
 
 from .inference import run_model
+from .logger import flush_logs
+from .logger import read_logs
+from .logger import setup_logger
 from .utils import load_ct_to_numpy
 from .utils import load_pred_volume_to_numpy
 from .utils import nifti_to_glb
+
+# setup logging
+LOGGER = setup_logger()
 
 
 class WebUI:
@@ -53,14 +59,16 @@ class WebUI:
         ).style(height=512)
 
     def set_class_name(self, value):
-        print("Changed task to:", value)
+        LOGGER.info(f"Changed task to: {value}")
         self.class_name = value
 
     def combine_ct_and_seg(self, img, pred):
         return (img, [(pred, self.class_name)])
 
     def upload_file(self, file):
-        return file.name
+        out = file.name
+        LOGGER.info(f"File uploaded: {out}")
+        return out
 
     def process(self, mesh_file_name):
         path = mesh_file_name.name
@@ -70,9 +78,13 @@ class WebUI:
             task=self.class_names[self.class_name],
             name=self.result_names[self.class_name],
         )
+        LOGGER.info("Converting prediction NIfTI to GLB...")
         nifti_to_glb("prediction.nii.gz")
 
+        LOGGER.info("Loading CT to numpy...")
         self.images = load_ct_to_numpy(path)
+
+        LOGGER.info("Loading prediction volume to numpy..")
         self.pred_images = load_pred_volume_to_numpy("./prediction.nii.gz")
 
         return "./prediction.obj"
@@ -90,6 +102,10 @@ class WebUI:
         )
         return out
 
+    def toggle_sidebar(self, state):
+        state = not state
+        return gr.update(visible=state), state
+
     def run(self):
         css = """
         #model-3d {
@@ -100,69 +116,100 @@ class WebUI:
         margin: auto;
         }
         #upload {
-        height: 120px;
+        height: 160px;
         }
         """
         with gr.Blocks(css=css) as demo:
             with gr.Row():
-                file_output = gr.File(file_count="single", elem_id="upload")
-                file_output.upload(self.upload_file, file_output, file_output)
+                with gr.Column(visible=True, scale=0.2) as sidebar_left:
+                    # gr.Markdown("SideBar Left")
+                    logs = gr.Textbox(
+                        label="Logs",
+                        info="Verbose from inference will be displayed below.",
+                        max_lines=16,
+                        autoscroll=True,
+                        elem_id="logs",
+                        show_copy_button=True,
+                    )
+                    demo.load(read_logs, None, logs, every=1)
 
-                model_selector = gr.Dropdown(
-                    list(self.class_names.keys()),
-                    label="Task",
-                    info="Which task to perform",
-                    multiselect=False,
-                    size="sm",
-                )
-                model_selector.input(
-                    fn=lambda x: self.set_class_name(x),
-                    inputs=model_selector,
-                    outputs=None,
-                )
-
-                run_btn = gr.Button("Run analysis").style(
-                    full_width=False, size="lg"
-                )
-                run_btn.click(
-                    fn=lambda x: self.process(x),
-                    inputs=file_output,
-                    outputs=self.volume_renderer,
-                )
-
-            with gr.Row():
-                gr.Examples(
-                    examples=[
-                        os.path.join(self.cwd, "test_thorax_CT.nii.gz"),
-                    ],
-                    inputs=file_output,
-                    outputs=file_output,
-                    fn=self.upload_file,
-                    cache_examples=True,
-                )
-
-            with gr.Row():
-                with gr.Box():
-                    with gr.Column():
-                        # create dummy image to be replaced by loaded images
-                        t = gr.AnnotatedImage(
-                            visible=True, elem_id="model-2d"
-                        ).style(
-                            color_map={self.class_name: "#ffae00"},
-                            height=512,
-                            width=512,
+                with gr.Column():
+                    with gr.Row():
+                        file_output = gr.File(
+                            file_count="single", elem_id="upload"
+                        )
+                        file_output.upload(
+                            self.upload_file, file_output, file_output
                         )
 
-                        self.slider.input(
-                            self.get_img_pred_pair,
-                            self.slider,
-                            t,
+                        model_selector = gr.Dropdown(
+                            list(self.class_names.keys()),
+                            label="Task",
+                            info="Which task to perform",
+                            multiselect=False,
+                            size="sm",
+                        )
+                        model_selector.input(
+                            fn=lambda x: self.set_class_name(x),
+                            inputs=model_selector,
+                            outputs=None,
                         )
 
-                        self.slider.render()
+                        with gr.Column():
+                            run_btn = gr.Button("Run analysis").style(
+                                full_width=False, size="lg"
+                            )
+                            run_btn.click(
+                                fn=lambda x: self.process(x),
+                                inputs=file_output,
+                                outputs=self.volume_renderer,
+                            )
 
-                with gr.Box():
-                    self.volume_renderer.render()
+                            sidebar_state = gr.State(True)
+
+                            btn_toggle_sidebar = gr.Button("Toggle Sidebar")
+                            btn_toggle_sidebar.click(
+                                self.toggle_sidebar,
+                                [sidebar_state],
+                                [sidebar_left, sidebar_state],
+                            )
+
+                            btn_clear_logs = gr.Button("Clear logs")
+                            btn_clear_logs.click(flush_logs, [], [])
+
+                    with gr.Row():
+                        gr.Examples(
+                            examples=[
+                                os.path.join(self.cwd, "test_thorax_CT.nii.gz"),
+                            ],
+                            inputs=file_output,
+                            outputs=file_output,
+                            fn=self.upload_file,
+                            cache_examples=True,
+                        )
+
+                    with gr.Row():
+                        with gr.Box():
+                            with gr.Column():
+                                # create dummy image to be replaced by loaded images
+                                t = gr.AnnotatedImage(
+                                    visible=True, elem_id="model-2d"
+                                ).style(
+                                    color_map={self.class_name: "#ffae00"},
+                                    height=512,
+                                    width=512,
+                                )
+
+                                self.slider.input(
+                                    self.get_img_pred_pair,
+                                    self.slider,
+                                    t,
+                                )
+
+                                self.slider.render()
+
+                        with gr.Box():
+                            self.volume_renderer.render()
 
         # sharing app publicly -> share=True:
         # https://gradio.app/sharing-your-app/

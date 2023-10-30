@@ -12,9 +12,6 @@ def run_model(
     task: str = "CT_Airways",
     name: str = "Airways",
 ):
-    logging.basicConfig()
-    logging.getLogger().setLevel(logging.WARNING)
-
     if verbose == "debug":
         logging.getLogger().setLevel(logging.DEBUG)
     elif verbose == "info":
