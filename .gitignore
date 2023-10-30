@@ -11,3 +11,5 @@ venv/
 *.onnx
 *.xml
 *.obj
+*.zip
+*.txt
