@@ -20,7 +20,7 @@ class WebUI:
         self.pred_images = []
 
         # @TODO: This should be dynamically set based on chosen volume size
-        self.nb_slider_items = 415
+        self.nb_slider_items = 820
 
         self.model_name = model_name
         self.cwd = cwd
@@ -39,8 +39,8 @@ class WebUI:
 
         # define widgets not to be rendered immediantly, but later on
         self.slider = gr.Slider(
-            1,
-            self.nb_slider_items,
+            minimum=1,
+            maximum=self.nb_slider_items,
             value=1,
             step=1,
             label="Which 2D slice to show",
@@ -74,14 +74,19 @@ class WebUI:
 
         self.images = load_ct_to_numpy(path)
         self.pred_images = load_pred_volume_to_numpy("./prediction.nii.gz")
+
         return "./prediction.obj"
 
     def get_img_pred_pair(self, k):
-        k = int(k) - 1
-        out = [gr.AnnotatedImage.update(visible=False)] * self.nb_slider_items
-        out[k] = gr.AnnotatedImage.update(
+        k = int(k)
+        out = gr.AnnotatedImage(
             self.combine_ct_and_seg(self.images[k], self.pred_images[k]),
             visible=True,
+            elem_id="model-2d",
+        ).style(
+            color_map={self.class_name: "#ffae00"},
+            height=512,
+            width=512,
         )
         return out
 
@@ -139,20 +144,19 @@ class WebUI:
             with gr.Row():
                 with gr.Box():
                     with gr.Column():
-                        image_boxes = []
-                        for i in range(self.nb_slider_items):
-                            visibility = True if i == 1 else False
-                            t = gr.AnnotatedImage(
-                                visible=visibility, elem_id="model-2d"
-                            ).style(
-                                color_map={self.class_name: "#ffae00"},
-                                height=512,
-                                width=512,
-                            )
-                            image_boxes.append(t)
+                        # create dummy image to be replaced by loaded images
+                        t = gr.AnnotatedImage(
+                            visible=True, elem_id="model-2d"
+                        ).style(
+                            color_map={self.class_name: "#ffae00"},
+                            height=512,
+                            width=512,
+                        )
 
                         self.slider.input(
-                            self.get_img_pred_pair, self.slider, image_boxes
+                            self.get_img_pred_pair,
+                            self.slider,
+                            t,
                         )
 
                         self.slider.render()
