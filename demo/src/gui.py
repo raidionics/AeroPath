@@ -2,6 +2,7 @@ import os
 
 import gradio as gr
 
+from .css_style import css
 from .inference import run_model
 from .logger import flush_logs
 from .logger import read_logs
@@ -107,34 +108,39 @@ class WebUI:
         return gr.update(visible=state), state
 
     def run(self):
-        css = """
-        #model-3d {
-        height: 512px;
-        }
-        #model-2d {
-        height: 512px;
-        margin: auto;
-        }
-        #upload {
-        height: 160px;
-        }
-        """
         with gr.Blocks(css=css) as demo:
             with gr.Row():
                 with gr.Column(visible=True, scale=0.2) as sidebar_left:
                     # gr.Markdown("SideBar Left")
                     logs = gr.Textbox(
+                        placeholder="\n" * 16,
                         label="Logs",
                         info="Verbose from inference will be displayed below.",
-                        max_lines=16,
+                        lines=38,
+                        max_lines=38,
                         autoscroll=True,
                         elem_id="logs",
                         show_copy_button=True,
+                        scroll_to_output=False,
+                        container=True,
                     )
                     demo.load(read_logs, None, logs, every=1)
 
                 with gr.Column():
                     with gr.Row():
+                        with gr.Column(scale=0.2, min_width=150):
+                            sidebar_state = gr.State(True)
+
+                            btn_toggle_sidebar = gr.Button("Toggle Sidebar", elem_id="toggle-button")
+                            btn_toggle_sidebar.click(
+                                self.toggle_sidebar,
+                                [sidebar_state],
+                                [sidebar_left, sidebar_state],
+                            )
+
+                            btn_clear_logs = gr.Button("Clear logs", elem_id="logs-button")
+                            btn_clear_logs.click(flush_logs, [], [])
+                        
                         file_output = gr.File(
                             file_count="single", elem_id="upload"
                         )
@@ -155,27 +161,15 @@ class WebUI:
                             outputs=None,
                         )
 
-                        with gr.Column():
-                            run_btn = gr.Button("Run analysis").style(
-                                full_width=False, size="lg"
+                        with gr.Column(scale=0.2, min_width=150):
+                            run_btn = gr.Button("Run analysis", variant="primary", elem_id="run-button").style(
+                                full_width=False, size="lg",
                             )
                             run_btn.click(
                                 fn=lambda x: self.process(x),
                                 inputs=file_output,
                                 outputs=self.volume_renderer,
                             )
-
-                            sidebar_state = gr.State(True)
-
-                            btn_toggle_sidebar = gr.Button("Toggle Sidebar")
-                            btn_toggle_sidebar.click(
-                                self.toggle_sidebar,
-                                [sidebar_state],
-                                [sidebar_left, sidebar_state],
-                            )
-
-                            btn_clear_logs = gr.Button("Clear logs")
-                            btn_clear_logs.click(flush_logs, [], [])
 
                     with gr.Row():
                         gr.Examples(
