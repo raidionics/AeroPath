@@ -131,16 +131,20 @@ class WebUI:
                         with gr.Column(scale=0.2, min_width=150):
                             sidebar_state = gr.State(True)
 
-                            btn_toggle_sidebar = gr.Button("Toggle Sidebar", elem_id="toggle-button")
+                            btn_toggle_sidebar = gr.Button(
+                                "Toggle Sidebar", elem_id="toggle-button"
+                            )
                             btn_toggle_sidebar.click(
                                 self.toggle_sidebar,
                                 [sidebar_state],
                                 [sidebar_left, sidebar_state],
                             )
 
-                            btn_clear_logs = gr.Button("Clear logs", elem_id="logs-button")
+                            btn_clear_logs = gr.Button(
+                                "Clear logs", elem_id="logs-button"
+                            )
                             btn_clear_logs.click(flush_logs, [], [])
-                        
+
                         file_output = gr.File(
                             file_count="single", elem_id="upload"
                         )
@@ -162,8 +166,13 @@ class WebUI:
                         )
 
                         with gr.Column(scale=0.2, min_width=150):
-                            run_btn = gr.Button("Run analysis", variant="primary", elem_id="run-button").style(
-                                full_width=False, size="lg",
+                            run_btn = gr.Button(
+                                "Run analysis",
+                                variant="primary",
+                                elem_id="run-button",
+                            ).style(
+                                full_width=False,
+                                size="lg",
                             )
                             run_btn.click(
                                 fn=lambda x: self.process(x),
