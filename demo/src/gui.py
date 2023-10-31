@@ -75,12 +75,12 @@ class WebUI:
 
     def process(self, mesh_file_name):
         path = mesh_file_name.name
-        #run_model(
-        #    path,
-        #    model_path=os.path.join(self.cwd, "resources/models/"),
-        #    task=self.class_names[self.class_name],
-        #    name=self.result_names[self.class_name],
-        #)
+        run_model(
+            path,
+            model_path=os.path.join(self.cwd, "resources/models/"),
+            task=self.class_names[self.class_name],
+            name=self.result_names[self.class_name],
+        )
         LOGGER.info("Converting prediction NIfTI to OBJ...")
         nifti_to_glb("prediction.nii.gz")
 
