@@ -56,9 +56,9 @@ def nifti_to_glb(path, output="prediction.obj"):
     with open(output, "w") as thefile:
         # Write the material definition to the OBJ file
         thefile.write(red_material + "\n")
-        
+
         for item in verts:
-            #thefile.write('usemtl RedMaterial\n')
+            # thefile.write('usemtl RedMaterial\n')
             thefile.write("v {0} {1} {2}\n".format(item[0], item[1], item[2]))
 
         for item in normals:
