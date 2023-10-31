@@ -55,8 +55,10 @@ class WebUI:
         self.volume_renderer = gr.Model3D(
             clear_color=[0.0, 0.0, 0.0, 0.0],
             label="3D Model",
+            show_label=True,
             visible=True,
             elem_id="model-3d",
+            camera_position=[90, 180, 768],
         ).style(height=512)
 
     def set_class_name(self, value):
@@ -73,13 +75,13 @@ class WebUI:
 
     def process(self, mesh_file_name):
         path = mesh_file_name.name
-        run_model(
-            path,
-            model_path=os.path.join(self.cwd, "resources/models/"),
-            task=self.class_names[self.class_name],
-            name=self.result_names[self.class_name],
-        )
-        LOGGER.info("Converting prediction NIfTI to GLB...")
+        #run_model(
+        #    path,
+        #    model_path=os.path.join(self.cwd, "resources/models/"),
+        #    task=self.class_names[self.class_name],
+        #    name=self.result_names[self.class_name],
+        #)
+        LOGGER.info("Converting prediction NIfTI to OBJ...")
         nifti_to_glb("prediction.nii.gz")
 
         LOGGER.info("Loading CT to numpy...")
@@ -195,7 +197,7 @@ class WebUI:
 
                         gr.Markdown(
                             """
-                            **NOTE:** Inference might take several minutes (ETA: ~8 minutes), see logs to the left. \\
+                            **NOTE:** Inference might take several minutes (Airways: ~8 minutes), see logs to the left. \\
                             The segmentation will be available in the 2D and 3D viewers below when finished.
                             """
                         )
