@@ -30,8 +30,7 @@ This web application enables users to easily test our deep learning model for ai
 
 To access the live demo, click on the `Hugging Face` badge above. Below is a snapshot of the current state of the demo app.
 
-<img width="1584" alt="Screenshot 2023-10-31 at 01 34 47" src="https://github.com/raidionics/AeroPath/assets/29090665/821091d4-41f6-468a-b591-05dfe2be64ba">
-
+<img width="1400" alt="Screenshot 2023-10-31 at 01 34 47" src="https://github.com/raidionics/AeroPath/assets/29090665/bd2db9ff-b188-4f90-aa96-4723b8e7597c">
 
 ## [Continuous integration](https://github.com/raidionics/AeroPath#continuous-integration)
 
