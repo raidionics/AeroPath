@@ -55,8 +55,10 @@ class WebUI:
         self.volume_renderer = gr.Model3D(
             clear_color=[0.0, 0.0, 0.0, 0.0],
             label="3D Model",
+            show_label=True,
             visible=True,
             elem_id="model-3d",
+            camera_position=[90, 180, 768],
         ).style(height=512)
 
     def set_class_name(self, value):
@@ -79,7 +81,7 @@ class WebUI:
             task=self.class_names[self.class_name],
             name=self.result_names[self.class_name],
         )
-        LOGGER.info("Converting prediction NIfTI to GLB...")
+        LOGGER.info("Converting prediction NIfTI to OBJ...")
         nifti_to_glb("prediction.nii.gz")
 
         LOGGER.info("Loading CT to numpy...")
@@ -123,6 +125,7 @@ class WebUI:
                         show_copy_button=True,
                         scroll_to_output=False,
                         container=True,
+                        line_breaks=True,
                     )
                     demo.load(read_logs, None, logs, every=1)
 
@@ -132,7 +135,8 @@ class WebUI:
                             sidebar_state = gr.State(True)
 
                             btn_toggle_sidebar = gr.Button(
-                                "Toggle Sidebar", elem_id="toggle-button"
+                                "Toggle Sidebar",
+                                elem_id="toggle-button",
                             )
                             btn_toggle_sidebar.click(
                                 self.toggle_sidebar,
@@ -155,7 +159,7 @@ class WebUI:
                         model_selector = gr.Dropdown(
                             list(self.class_names.keys()),
                             label="Task",
-                            info="Which task to perform",
+                            info="Which structure to segment.",
                             multiselect=False,
                             size="sm",
                         )
@@ -189,6 +193,13 @@ class WebUI:
                             outputs=file_output,
                             fn=self.upload_file,
                             cache_examples=True,
+                        )
+
+                        gr.Markdown(
+                            """
+                            **NOTE:** Inference might take several minutes (Airways: ~8 minutes), see logs to the left. \\
+                            The segmentation will be available in the 2D and 3D viewers below when finished.
+                            """
                         )
 
                     with gr.Row():
