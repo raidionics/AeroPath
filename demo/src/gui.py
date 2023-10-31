@@ -11,7 +11,6 @@ from .logger import setup_logger
 from .utils import load_ct_to_numpy
 from .utils import load_pred_volume_to_numpy
 
-
 # setup logging
 LOGGER = setup_logger()
 
