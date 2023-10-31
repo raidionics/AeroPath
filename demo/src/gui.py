@@ -123,6 +123,7 @@ class WebUI:
                         show_copy_button=True,
                         scroll_to_output=False,
                         container=True,
+                        line_breaks=True,
                     )
                     demo.load(read_logs, None, logs, every=1)
 
@@ -189,6 +190,13 @@ class WebUI:
                             outputs=file_output,
                             fn=self.upload_file,
                             cache_examples=True,
+                        )
+
+                        gr.Markdown(
+                            """
+                            **NOTE:** Inference might take several minutes (ETA: ~8 minutes), see logs to the left. \\
+                            The segmentation will be available in the 2D and 3D viewers below when finished.
+                            """
                         )
 
                     with gr.Row():
