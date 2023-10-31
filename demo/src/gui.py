@@ -156,7 +156,7 @@ class WebUI:
                         model_selector = gr.Dropdown(
                             list(self.class_names.keys()),
                             label="Task",
-                            info="Which task to perform",
+                            info="Which structure to segment.",
                             multiselect=False,
                             size="sm",
                         )
