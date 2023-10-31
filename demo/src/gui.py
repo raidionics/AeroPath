@@ -133,7 +133,8 @@ class WebUI:
                             sidebar_state = gr.State(True)
 
                             btn_toggle_sidebar = gr.Button(
-                                "Toggle Sidebar", elem_id="toggle-button"
+                                "Toggle Sidebar",
+                                elem_id="toggle-button",
                             )
                             btn_toggle_sidebar.click(
                                 self.toggle_sidebar,
