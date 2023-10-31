@@ -2,6 +2,7 @@ import os
 
 import gradio as gr
 
+from .convert import nifti_to_obj
 from .css_style import css
 from .inference import run_model
 from .logger import flush_logs
@@ -9,7 +10,7 @@ from .logger import read_logs
 from .logger import setup_logger
 from .utils import load_ct_to_numpy
 from .utils import load_pred_volume_to_numpy
-from .utils import nifti_to_glb
+
 
 # setup logging
 LOGGER = setup_logger()
@@ -82,7 +83,7 @@ class WebUI:
             name=self.result_names[self.class_name],
         )
         LOGGER.info("Converting prediction NIfTI to OBJ...")
-        nifti_to_glb("prediction.nii.gz")
+        nifti_to_obj("prediction.nii.gz")
 
         LOGGER.info("Loading CT to numpy...")
         self.images = load_ct_to_numpy(path)
@@ -113,7 +114,6 @@ class WebUI:
         with gr.Blocks(css=css) as demo:
             with gr.Row():
                 with gr.Column(visible=True, scale=0.2) as sidebar_left:
-                    # gr.Markdown("SideBar Left")
                     logs = gr.Textbox(
                         placeholder="\n" * 16,
                         label="Logs",
