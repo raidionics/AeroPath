@@ -24,7 +24,9 @@ app_file: demo/app.py
 
 ## [Brief intro](https://github.com/raidionics/AeroPath#brief-intro)
 
-This web application enables users to easily test our deep learning model for airway segmentation in CTs. The plugin is built on top of gradio using the same backend as used for the [Raidionics](https://raidionics.github.io/) software. Raidionics is an open-source, free-to-use desktop application for pre- and postoperative central nervous system tumor segmentation and standardized reporting, but the same core backend principles can easily be adapted to other applications, as demonstrated in this repository.
+This repository contains the AeroPath dataset described in ["_AeroPath: An airway segmentation benchmark dataset with challenging pathology_"](https://arxiv.org/abs/2311.01138).  A web application was also developed in the study, to enable users to easily test our deep learning model on their own data. The application was developed using [Gradio](https://www.gradio.app) for the frontend and the segmentation is performed using the [Raidionics](https://raidionics.github.io/) backend.
+
+The dataset can be accessed from [Releases](https://github.com/raidionics/AeroPath/releases).
 
 ## [Demo](https://github.com/raidionics/AeroPath#demo) <a target="_blank" href="https://huggingface.co/spaces/andreped/AeroPath"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Spaces-yellow.svg"></a>
 
@@ -71,16 +73,29 @@ python demo/app.py --cwd ./
 
 ## [Citation](https://github.com/raidionics/AeroPath#citation)
 
-If you found this tool relevant in your research, please cite the following reference which introduced the backend that is used for the AeroPath demonstration:
+If you found the dataset and/or web application relevant in your research, please cite the following reference:
+```
+@misc{støverud2023aeropath,
+      title={{AeroPath: An airway segmentation benchmark dataset with challenging pathology}}, 
+      author={Karen-Helene Støverud and David Bouget and Andre Pedersen and Håkon Olav Leira and Thomas Langø and Erlend Fagertun Hofstad},
+      year={2023},
+      eprint={2311.01138},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
+
+The web application is using the [Raidionics]() backend, thus, also consider citing:
 ```
 @article{bouget2023raidionics,
+    title = {Raidionics: an open software for pre-and postoperative central nervous system tumor segmentation and standardized reporting},
     author = {Bouget, David and Alsinan, Demah and Gaitan, Valeria and Holden Helland, Ragnhild and Pedersen, André and Solheim, Ole and Reinertsen, Ingerid},
     year = {2023},
     month = {09},
     pages = {},
-    title = {Raidionics: an open software for pre-and postoperative central nervous system tumor segmentation and standardized reporting},
     volume = {13},
     journal = {Scientific Reports},
     doi = {10.1038/s41598-023-42048-7},
 }
 ```
+ 
