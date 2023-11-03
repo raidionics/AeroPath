@@ -28,6 +28,25 @@ This repository contains the AeroPath dataset described in ["_AeroPath: An airwa
 
 The dataset can be accessed from [Releases](https://github.com/raidionics/AeroPath/releases).
 
+## [Dataset structure](https://github.com/raidionics/AeroPath#data-structure)
+
+The dataset contains 27 CTs with corresponding airways and lung annotations. The folder structure is described below:
+
+```
+└── AeroPath.zip
+    ├── README.md
+    └──  AeroPath/
+        ├── pat1/
+        │   ├── pat1_ct.nii.gz
+        │   ├── pat1_airways.nii.gz
+        │   └── pat1_lungs.nii.gz
+        ├── [...]
+        └── pat27/
+            ├── pat27_ct.nii.gz
+            ├── pat27_airways.nii.gz
+            └── pat27_lungs.nii.gz
+```
+
 ## [Demo](https://github.com/raidionics/AeroPath#demo) <a target="_blank" href="https://huggingface.co/spaces/andreped/AeroPath"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Spaces-yellow.svg"></a>
 
 To access the live demo, click on the `Hugging Face` badge above. Below is a snapshot of the current state of the demo app.
