@@ -98,4 +98,7 @@ The web application is using the [Raidionics]() backend, thus, also consider cit
     doi = {10.1038/s41598-023-42048-7},
 }
 ```
- 
+
+## [License](https://github.com/raidionics/AeroPath#license)
+
+The code in this repository is released under [MIT license](https://github.com/raidionics/AeroPath/blob/main/LICENSE.md).
