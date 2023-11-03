@@ -26,7 +26,7 @@ app_file: demo/app.py
 
 This repository contains the AeroPath dataset described in ["_AeroPath: An airway segmentation benchmark dataset with challenging pathology_"](https://arxiv.org/abs/2311.01138).  A web application was also developed in the study, to enable users to easily test our deep learning model on their own data. The application was developed using [Gradio](https://www.gradio.app) for the frontend and the segmentation is performed using the [Raidionics](https://raidionics.github.io/) backend.
 
-The dataset can be accessed from [Releases](https://github.com/raidionics/AeroPath/releases).
+The dataset can be accessed [here]([https://github.com/raidionics/AeroPath/releases](https://zenodo.org/records/10069289)).
 
 ## [Dataset structure](https://github.com/raidionics/AeroPath#data-structure)
 
@@ -36,15 +36,15 @@ The dataset contains 27 CTs with corresponding airways and lung annotations. The
 └── AeroPath.zip
     ├── README.md
     └──  AeroPath/
-        ├── pat1/
-        │   ├── pat1_ct.nii.gz
-        │   ├── pat1_airways.nii.gz
-        │   └── pat1_lungs.nii.gz
+        ├── 1/
+        │   ├── 1_CT_HR.nii.gz
+        │   ├── 1_CT_HR_label_airways.nii.gz
+        │   └── 1_CT_HR_label_lungs.nii.gz
         ├── [...]
-        └── pat27/
-            ├── pat27_ct.nii.gz
-            ├── pat27_airways.nii.gz
-            └── pat27_lungs.nii.gz
+        └── 27/
+            ├── 27_CT_HR.nii.gz
+            ├── 27_CT_HR_label_airways.nii.gz
+            └── 27_CT_HR_label_lungs.nii.gz
 ```
 
 ## [Demo](https://github.com/raidionics/AeroPath#demo) <a target="_blank" href="https://huggingface.co/spaces/andreped/AeroPath"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Spaces-yellow.svg"></a>
