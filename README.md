@@ -17,6 +17,7 @@ app_file: demo/app.py
 [![license](https://img.shields.io/github/license/DAVFoundation/captain-n3m0.svg?style=flat-square)](https://github.com/DAVFoundation/captain-n3m0/blob/master/LICENSE)
 [![CI/CD](https://github.com/raidionics/AeroPath/actions/workflows/deploy.yml/badge.svg)](https://github.com/raidionics/AeroPath/actions/workflows/deploy.yml)
 <a target="_blank" href="https://huggingface.co/spaces/andreped/AeroPath"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Spaces-yellow.svg"></a>
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10069288.svg)](https://doi.org/10.5281/zenodo.10069288)
 
 **AeroPath** was developed by SINTEF Medical Image Analysis to accelerate medical AI research.
 
@@ -26,7 +27,7 @@ app_file: demo/app.py
 
 This repository contains the AeroPath dataset described in ["_AeroPath: An airway segmentation benchmark dataset with challenging pathology_"](https://arxiv.org/abs/2311.01138).  A web application was also developed in the study, to enable users to easily test our deep learning model on their own data. The application was developed using [Gradio](https://www.gradio.app) for the frontend and the segmentation is performed using the [Raidionics](https://raidionics.github.io/) backend.
 
-The dataset can be accessed [here](https://zenodo.org/records/10069289).
+The dataset is made openly available at Zenodo [here](https://zenodo.org/records/10069289).
 
 ## [Dataset structure](https://github.com/raidionics/AeroPath#data-structure)
 
