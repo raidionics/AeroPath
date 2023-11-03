@@ -105,6 +105,22 @@ If you found the dataset and/or web application relevant in your research, pleas
 }
 ```
 
+The dataset is hosted at Zenodo, so you should also cite the following:
+```
+@dataset{hofstad_2023_10069289,
+  author       = {Hofstad, Erlend and
+                  Bouget, David and
+                  Pedersen, André},
+  title        = {{AeroPath: An airway segmentation benchmark dataset 
+                   with challenging pathology}},
+  month        = nov,
+  year         = 2023,
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.10069289},
+  url          = {https://doi.org/10.5281/zenodo.10069289}
+}
+```
+
 The web application is using the [Raidionics]() backend, thus, also consider citing:
 ```
 @article{bouget2023raidionics,
