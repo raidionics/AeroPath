@@ -11,7 +11,7 @@ app_file: demo/app.py
 ---
 
 <div align="center">
-<h1 align="center">AeroPath</h1>
+<h1 align="center">🫁 AeroPath 🤗</h1>
 <h3 align="center">An airway segmentation benchmark dataset with challenging pathology</h3>
 
 [![license](https://img.shields.io/github/license/DAVFoundation/captain-n3m0.svg?style=flat-square)](https://github.com/DAVFoundation/captain-n3m0/blob/master/LICENSE)
