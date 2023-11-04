@@ -97,23 +97,20 @@ python demo/app.py --cwd ./
 If you found the dataset and/or web application relevant in your research, please cite the following reference:
 ```
 @misc{støverud2023aeropath,
-      title={{AeroPath: An airway segmentation benchmark dataset with challenging pathology}}, 
-      author={Karen-Helene Støverud and David Bouget and Andre Pedersen and Håkon Olav Leira and Thomas Langø and Erlend Fagertun Hofstad},
-      year={2023},
-      eprint={2311.01138},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+  title={{AeroPath: An airway segmentation benchmark dataset with challenging pathology}}, 
+  author={Karen-Helene Støverud and David Bouget and Andre Pedersen and Håkon Olav Leira and Thomas Langø and Erlend Fagertun Hofstad},
+  year={2023},
+  eprint={2311.01138},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV}
 }
 ```
 
 The dataset is hosted at Zenodo, so you should also cite the following:
 ```
-@dataset{hofstad_2023_10069289,
-  author       = {Hofstad, Erlend and
-                  Bouget, David and
-                  Pedersen, André},
-  title        = {{AeroPath: An airway segmentation benchmark dataset 
-                   with challenging pathology}},
+@dataset{hofstad2023aeropathzenodo,
+  title        = {{AeroPath: An airway segmentation benchmark dataset with challenging pathology}},
+  author       = {Hofstad, Erlend and Bouget, David and Pedersen, André},
   month        = nov,
   year         = 2023,
   publisher    = {Zenodo},
