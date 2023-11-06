@@ -18,7 +18,7 @@ app_file: demo/app.py
 [![CI/CD](https://github.com/raidionics/AeroPath/actions/workflows/deploy.yml/badge.svg)](https://github.com/raidionics/AeroPath/actions/workflows/deploy.yml)
 <a target="_blank" href="https://huggingface.co/spaces/andreped/AeroPath"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Spaces-yellow.svg"></a>
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10069288.svg)](https://doi.org/10.5281/zenodo.10069288)
-[![paper](https://img.shields.io/badge/arXiv-preprint-D12424)]([arXiv](https://arxiv.org/abs/2311.01138))
+[![paper](https://img.shields.io/badge/arXiv-preprint-D12424)](https://arxiv.org/abs/2311.01138)
 
 **AeroPath** was developed by SINTEF Medical Image Analysis to accelerate medical AI research.
 
