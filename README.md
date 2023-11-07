@@ -17,6 +17,7 @@ app_file: demo/app.py
 [![license](https://img.shields.io/github/license/DAVFoundation/captain-n3m0.svg?style=flat-square)](https://github.com/DAVFoundation/captain-n3m0/blob/master/LICENSE)
 [![CI/CD](https://github.com/raidionics/AeroPath/actions/workflows/deploy.yml/badge.svg)](https://github.com/raidionics/AeroPath/actions/workflows/deploy.yml)
 <a target="_blank" href="https://huggingface.co/spaces/andreped/AeroPath"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Spaces-yellow.svg"></a>
+<a href="https://colab.research.google.com/gist/andreped/6070d1d2914a9ce5847d4b3e687188b7/aeropath-load-dataset-example.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10069288.svg)](https://doi.org/10.5281/zenodo.10069288)
 [![paper](https://img.shields.io/badge/arXiv-preprint-D12424)](https://arxiv.org/abs/2311.01138)
 
@@ -30,9 +31,29 @@ This repository contains the AeroPath dataset described in ["_AeroPath: An airwa
 
 The dataset is made openly available at [Zenodo](https://zenodo.org/records/10069289) and [the Hugging Face Hub](https://huggingface.co/datasets/andreped/AeroPath). Click any of the two hyperlinks to access the dataset.
 
-## [Dataset structure](https://github.com/raidionics/AeroPath#data-structure)
+## [Dataset](https://github.com/raidionics/AeroPath#data)
 
-The dataset contains 27 CTs with corresponding airways and lung annotations. The folder structure is described below:
+### [Accessing dataset](https://github.com/raidionics/AeroPath#accessing-dataset)
+
+The dataset contains 27 CTs with corresponding airways and lung annotations. The folder structure is described below.
+
+The easiest way to access the data is through Python with Hugging Face's [datasets](https://pypi.org/project/datasets/) package:
+```
+from datasets import load_dataset
+
+# downloads data from Zenodo through the Hugging Face hub
+# - might take several minutes (~5 minutes in CoLab)
+dataset = load_dataset("andreped/AeroPath")
+print(dataset)
+
+# list paths of all available patients and corresponding features (ct/airways/lungs)
+for d in dataset["test"]:
+  print(d)
+```
+
+A detailed interactive demo on how to load and work with the data can be seen on CoLab: <a href="https://colab.research.google.com/gist/andreped/6070d1d2914a9ce5847d4b3e687188b7/aeropath-load-dataset-example.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
+### [Dataset structure](https://github.com/raidionics/AeroPath#data-structure)
 
 ```
 └── AeroPath.zip
