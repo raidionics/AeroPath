@@ -31,7 +31,7 @@ This repository contains the AeroPath dataset described in ["_AeroPath: An airwa
 
 The dataset is made openly available at [Zenodo](https://zenodo.org/records/10069289) and [the Hugging Face Hub](https://huggingface.co/datasets/andreped/AeroPath). Click any of the two hyperlinks to access the dataset.
 
-## [Dataset](https://github.com/raidionics/AeroPath#data)
+## [Dataset](https://github.com/raidionics/AeroPath#data) <a href="https://colab.research.google.com/gist/andreped/6070d1d2914a9ce5847d4b3e687188b7/aeropath-load-dataset-example.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 ### [Accessing dataset](https://github.com/raidionics/AeroPath#accessing-dataset)
 
@@ -51,9 +51,9 @@ for d in dataset["test"]:
   print(d)
 ```
 
-A detailed interactive demo on how to load and work with the data can be seen on CoLab: <a href="https://colab.research.google.com/gist/andreped/6070d1d2914a9ce5847d4b3e687188b7/aeropath-load-dataset-example.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+A detailed interactive demo on how to load and work with the data can be seen on CoLab. Click the CoLab badge <a href="https://colab.research.google.com/gist/andreped/6070d1d2914a9ce5847d4b3e687188b7/aeropath-load-dataset-example.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> to see the notebook or alternatively click [here](https://github.com/raidionics/AeroPath/blob/main/notebooks/aeropath-load-dataset-example.ipynb) to see it on GitHub.
 
-### [Dataset structure](https://github.com/raidionics/AeroPath#data-structure)
+### [Dataset structure](https://github.com/raidionics/AeroPath#dataset-structure)
 
 ```
 └── AeroPath.zip
