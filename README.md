@@ -28,7 +28,7 @@ app_file: demo/app.py
 
 This repository contains the AeroPath dataset described in ["_AeroPath: An airway segmentation benchmark dataset with challenging pathology_"](https://arxiv.org/abs/2311.01138).  A web application was also developed in the study, to enable users to easily test our deep learning model on their own data. The application was developed using [Gradio](https://www.gradio.app) for the frontend and the segmentation is performed using the [Raidionics](https://raidionics.github.io/) backend.
 
-The dataset is made openly available at Zenodo [here](https://zenodo.org/records/10069289).
+The dataset is made openly available at [Zenodo](https://zenodo.org/records/10069289) and [the Hugging Face Hub](https://huggingface.co/datasets/andreped/AeroPath). Click any of the two hyperlinks to access the dataset.
 
 ## [Dataset structure](https://github.com/raidionics/AeroPath#data-structure)
 
