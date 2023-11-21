@@ -37,7 +37,7 @@ The dataset is made openly available at [Zenodo](https://zenodo.org/records/1006
 
 The dataset contains 27 CTs with corresponding airways and lung annotations. The folder structure is described below.
 
-The easiest way to access the data is through Python with Hugging Face's [datasets](https://pypi.org/project/datasets/) package:
+The easiest way to access the data is in Python with Hugging Face's [datasets](https://pypi.org/project/datasets/) package:
 ```
 from datasets import load_dataset
 
