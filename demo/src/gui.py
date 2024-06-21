@@ -105,7 +105,7 @@ class WebUI:
         return "./prediction.obj"
 
     def download_prediction(self):
-        if ( self.filename is None) or (not self.extension is None):
+        if (self.filename is None) or (self.extension is None):
             LOGGER.error(
                 "The prediction is not available or ready to download. Wait until the result is available in the 3D viewer."
             )
