@@ -11,6 +11,7 @@ def run_model(
     verbose: str = "info",
     task: str = "CT_Airways",
     name: str = "Airways",
+    output_filename: str = None,
 ):
     if verbose == "debug":
         logging.getLogger().setLevel(logging.DEBUG)
@@ -26,6 +27,9 @@ def run_model(
         shutil.rmtree("./patient/")
     if os.path.exists("./result/"):
         shutil.rmtree("./result/")
+
+    if output_filename is None:
+        raise ValueError("Please, set output_filename.")
 
     patient_directory = ""
     output_path = ""
@@ -84,7 +88,7 @@ def run_model(
             + "-t1gd_annotation-"
             + name
             + ".nii.gz",
-            "./prediction.nii.gz",
+            output_filename,
         )
         # Clean-up
         if os.path.exists(patient_directory):
