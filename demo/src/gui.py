@@ -33,6 +33,9 @@ class WebUI:
         self.cwd = cwd
         self.share = share
 
+        self.filename = None
+        self.extension = None
+
         self.class_name = "airways"  # default
         self.class_names = {
             "airways": "CT_Airways",
@@ -102,10 +105,11 @@ class WebUI:
         return "./prediction.obj"
 
     def download_prediction(self):
-        if (not self.filename) or (not self.extension):
+        if (self.filename is None) or (self.extension is None):
             LOGGER.error(
                 "The prediction is not available or ready to download. Wait until the result is available in the 3D viewer."
             )
+            raise ValueError("Run inference before downloading!")
         return self.filename + "." + self.extension
 
     def get_img_pred_pair(self, k):
