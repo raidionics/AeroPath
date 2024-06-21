@@ -78,13 +78,15 @@ class WebUI:
         path = mesh_file_name.name
         curr = path.split("/")[-1]
         self.extension = ".".join(curr.split(".")[1:])
-        self.filename = curr.split(".")[0] + "-" + self.class_names[self.class_name]
+        self.filename = (
+            curr.split(".")[0] + "-" + self.class_names[self.class_name]
+        )
         run_model(
             path,
             model_path=os.path.join(self.cwd, "resources/models/"),
             task=self.class_names[self.class_name],
             name=self.result_names[self.class_name],
-            output_filename=self.filename + "." + self.extension
+            output_filename=self.filename + "." + self.extension,
         )
         LOGGER.info("Converting prediction NIfTI to OBJ...")
         nifti_to_obj(path=self.filename + "." + self.extension)
@@ -93,13 +95,17 @@ class WebUI:
         self.images = load_ct_to_numpy(path)
 
         LOGGER.info("Loading prediction volume to numpy..")
-        self.pred_images = load_pred_volume_to_numpy(self.filename + "." + self.extension)
+        self.pred_images = load_pred_volume_to_numpy(
+            self.filename + "." + self.extension
+        )
 
         return "./prediction.obj"
-    
+
     def download_prediction(self):
         if (not self.filename) or (not self.extension):
-            LOGGER.error("The prediction is not available or ready to download. Wait until the result is available in the 3D viewer.")
+            LOGGER.error(
+                "The prediction is not available or ready to download. Wait until the result is available in the 3D viewer."
+            )
         return self.filename + "." + self.extension
 
     def get_img_pred_pair(self, k):
@@ -156,7 +162,9 @@ class WebUI:
                             btn_clear_logs.click(flush_logs, [], [])
 
                         file_output = gr.File(
-                            file_count="single", elem_id="upload", scale=3,
+                            file_count="single",
+                            elem_id="upload",
+                            scale=3,
                         )
                         file_output.upload(
                             self.upload_file, file_output, file_output
@@ -225,8 +233,8 @@ class WebUI:
                                     visible=True,
                                     elem_id="model-2d",
                                     color_map={self.class_name: "#ffae00"},
-                                    #height=512,
-                                    #width=512,
+                                    # height=512,
+                                    # width=512,
                                 )
                                 self.slider.input(
                                     self.get_img_pred_pair,
@@ -236,7 +244,7 @@ class WebUI:
 
                                 self.slider.render()
 
-                        with gr.Group(): #gr.Box():
+                        with gr.Group():  # gr.Box():
                             self.volume_renderer.render()
 
         # sharing app publicly -> share=True:
