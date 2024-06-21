@@ -126,8 +126,8 @@ class WebUI:
                         placeholder="\n" * 16,
                         label="Logs",
                         info="Verbose from inference will be displayed below.",
-                        lines=38,
-                        max_lines=38,
+                        lines=36,
+                        max_lines=36,
                         autoscroll=True,
                         elem_id="logs",
                         show_copy_button=True,
@@ -137,7 +137,7 @@ class WebUI:
 
                 with gr.Column():
                     with gr.Row():
-                        with gr.Column(scale=0.2, min_width=150):
+                        with gr.Column(scale=1, min_width=150):
                             sidebar_state = gr.State(True)
 
                             btn_toggle_sidebar = gr.Button(
@@ -156,7 +156,7 @@ class WebUI:
                             btn_clear_logs.click(flush_logs, [], [])
 
                         file_output = gr.File(
-                            file_count="single", elem_id="upload"
+                            file_count="single", elem_id="upload", scale=3,
                         )
                         file_output.upload(
                             self.upload_file, file_output, file_output
@@ -167,7 +167,7 @@ class WebUI:
                             label="Task",
                             info="Which structure to segment.",
                             multiselect=False,
-                            scale=1.0,
+                            scale=1,
                         )
                         model_selector.input(
                             fn=lambda x: self.set_class_name(x),
@@ -175,19 +175,12 @@ class WebUI:
                             outputs=None,
                         )
 
-                        with gr.Column(scale=0.2, min_width=150):
+                        with gr.Column(scale=1, min_width=150):
                             run_btn = gr.Button(
                                 "Run analysis",
                                 variant="primary",
                                 elem_id="run-button",
-                                #scale=1.0,
-                                # size=1.0,
-                                size="lg",
                             )
-                            #.style(
-                            #    full_width=False,
-                            #    size="lg",
-                            #)
                             run_btn.click(
                                 fn=lambda x: self.process(x),
                                 inputs=file_output,
@@ -195,11 +188,10 @@ class WebUI:
                             )
 
                             download_btn = gr.DownloadButton(
-                                "Download the result as NIfTI",
+                                "Download prediction",
                                 visible=True,
                                 variant="secondary",
-                                # scale=1.0,
-                                size="sm",
+                                elem_id="download",
                             )
                             download_btn.click(
                                 fn=self.download_prediction,
@@ -226,18 +218,16 @@ class WebUI:
                         )
 
                     with gr.Row():
-                        with gr.Group(): #gr.Box():
+                        with gr.Group():
                             with gr.Column():
                                 # create dummy image to be replaced by loaded images
                                 t = gr.AnnotatedImage(
-                                    visible=True, elem_id="model-2d"
+                                    visible=True,
+                                    elem_id="model-2d",
+                                    color_map={self.class_name: "#ffae00"},
+                                    #height=512,
+                                    #width=512,
                                 )
-                                #.style(
-                                #    color_map={self.class_name: "#ffae00"},
-                                #    height=512,
-                                #    width=512,
-                                #)
-
                                 self.slider.input(
                                     self.get_img_pred_pair,
                                     self.slider,

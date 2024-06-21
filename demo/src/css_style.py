@@ -9,8 +9,12 @@ margin: auto;
 #upload {
 height: 110px;
 }
+#download {
+height: 47px;
+width: 150px;
+}
 #run-button {
-height: 110px;
+height: 47px;
 width: 150px;
 }
 #toggle-button {
