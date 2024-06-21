@@ -91,8 +91,8 @@ To access the live demo, click on the `Hugging Face` badge above. Below is a sna
 Alternatively, you can deploy the software locally. Note that this is only relevant for development purposes. Simply dockerize the app and run it:
 
 ```
-docker build -t AeroPath .
-docker run -it -p 7860:7860 AeroPath
+docker build -t aeropath .
+docker run -it -p 7860:7860 aeropath
 ```
 
 Then open `http://127.0.0.1:7860` in your favourite internet browser to view the demo.
