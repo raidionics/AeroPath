@@ -3,6 +3,8 @@ import logging
 import os
 import shutil
 import traceback
+import json
+import fnmatch
 
 
 def run_model(
@@ -11,7 +13,6 @@ def run_model(
     verbose: str = "info",
     task: str = "CT_Airways",
     name: str = "Airways",
-    output_filename: str = None,
 ):
     if verbose == "debug":
         logging.getLogger().setLevel(logging.DEBUG)
@@ -27,9 +28,6 @@ def run_model(
         shutil.rmtree("./patient/")
     if os.path.exists("./result/"):
         shutil.rmtree("./result/")
-
-    if output_filename is None:
-        raise ValueError("Please, set output_filename.")
 
     patient_directory = ""
     output_path = ""
@@ -59,37 +57,51 @@ def run_model(
         rads_config.set("System", "input_folder", patient_directory)
         rads_config.set("System", "output_folder", output_path)
         rads_config.set("System", "model_folder", model_path)
-        rads_config.set(
-            "System",
-            "pipeline_filename",
-            os.path.join(model_path, task, "pipeline.json"),
-        )
+        rads_config.set('System', 'pipeline_filename', os.path.join(output_path,
+                                                                    'test_pipeline.json'))
         rads_config.add_section("Runtime")
-        rads_config.set(
-            "Runtime", "reconstruction_method", "thresholding"
-        )  # thresholding, probabilities
+        rads_config.set("Runtime", "reconstruction_method", "thresholding")  # thresholding, probabilities
         rads_config.set("Runtime", "reconstruction_order", "resample_first")
         rads_config.set("Runtime", "use_preprocessed_data", "False")
 
         with open("rads_config.ini", "w") as f:
             rads_config.write(f)
 
+        pip = {}
+        step_index = 1
+        pip_num = str(step_index)
+        pip[pip_num] = {}
+        pip[pip_num]["task"] = "Classification"
+        pip[pip_num]["inputs"] = {}  # Empty input means running it on all existing data for the patient
+        pip[pip_num]["target"] = ["MRSequence"]
+        pip[pip_num]["model"] = "MRI_SequenceClassifier"
+        pip[pip_num]["description"] = "Classification of the MRI sequence type for all input scans."
+
+        step_index = step_index + 1
+        pip_num = str(step_index)
+        pip[pip_num] = {}
+        pip[pip_num]["task"] = 'Model selection'
+        pip[pip_num]["model"] = task
+        pip[pip_num]["timestamp"] = 0
+        pip[pip_num]["format"] = "thresholding"
+        pip[pip_num]["description"] = f"Identifying the best {task} segmentation model for existing inputs"
+
+        with open(os.path.join(output_path, 'test_pipeline.json'), 'w', newline='\n') as outfile:
+            json.dump(pip, outfile, indent=4, sort_keys=True)
+
         # finally, run inference
         from raidionicsrads.compute import run_rads
-
         run_rads(config_filename="rads_config.ini")
 
-        # rename and move final result
-        os.rename(
-            "./result/prediction-"
-            + splits[0]
-            + "/T0/"
-            + splits[0]
-            + "-t1gd_annotation-"
-            + name
-            + ".nii.gz",
-            output_filename,
-        )
+        logging.info(f"Looking for the following pattern: {task}")
+        patterns = [f"*-{name}.*"]
+        existing_files = os.listdir(os.path.join(output_path, "T0"))
+        logging.info(f"Existing files: {existing_files}")
+        fileName = str(os.path.join(output_path, "T0",
+                                    [x for x in existing_files if
+                                     any(fnmatch.fnmatch(x, pattern) for pattern in patterns)][0]))
+        os.rename(src=fileName, dst="./prediction.nii.gz")
+
         # Clean-up
         if os.path.exists(patient_directory):
             shutil.rmtree(patient_directory)

@@ -1,6 +1,6 @@
 # read the doc: https://huggingface.co/docs/hub/spaces-sdks-docker
 # you will also find guides on how best to write your Dockerfile
-FROM python:3.8-slim
+FROM python:3.10-slim
 
 # set language, format and stuff
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
@@ -50,10 +50,10 @@ WORKDIR $HOME/app
 COPY --chown=user . $HOME/app
 
 # Download pretrained models
-RUN wget "https://github.com/raidionics/Raidionics-models/releases/download/1.2.0/Raidionics-CT_Airways-ONNX-v12.zip" && \
-    unzip "Raidionics-CT_Airways-ONNX-v12.zip" && mkdir -p resources/models/ && mv CT_Airways/ resources/models/CT_Airways/
-RUN wget "https://github.com/raidionics/Raidionics-models/releases/download/1.2.0/Raidionics-CT_Lungs-ONNX-v12.zip" && \
-    unzip "Raidionics-CT_Lungs-ONNX-v12.zip" && mv CT_Lungs/ resources/models/CT_Lungs/
+RUN wget "https://github.com/raidionics/Raidionics-models/releases/download/v1.3.0-rc/Raidionics-CT_Airways-v13.zip" && \
+    unzip "Raidionics-CT_Airways-v13.zip" && mkdir -p resources/models/ && mv CT_Airways/ resources/models/CT_Airways/
+RUN wget "https://github.com/raidionics/Raidionics-models/releases/download/v1.3.0-rc/Raidionics-CT_Lungs-v13.zip" && \
+    unzip "Raidionics-CT_Lungs-v13.zip" && mv CT_Lungs/ resources/models/CT_Lungs/
 
 RUN rm -r *.zip
 
